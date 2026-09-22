@@ -326,7 +326,7 @@ alter table public.audit_events enable row level security;
 create policy "profiles_public_read" on public.profiles for select using (true);
 create policy "profile_self_insert" on public.profiles for insert with check (id = auth.uid());
 create policy "profile_self_update" on public.profiles for update using (id = auth.uid()) with check (id = auth.uid());
-create policy "roles_self_read" on public.profile_roles for select using (profile_id = auth.uid() or public.is_admin());
+create policy "roles_self_read" on public.profile_roles for select using (profile_id = auth.uid());
 
 create policy "artist_public_read" on public.artist_identities for select using (
   claim_status in ('UNCLAIMED','VERIFIED','APPROVED') or person_id = auth.uid() or public.is_admin()
